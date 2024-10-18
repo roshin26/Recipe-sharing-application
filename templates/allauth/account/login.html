@@ -1,0 +1,27 @@
+{% extends "account/base_entrance.html" %}
+{% load i18n %}
+{% load allauth account %}
+
+{% block title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+<div class="container text-center">
+    <h1>{% trans "Sign In" %}</h1>
+
+    <p>{% blocktrans %}Ready to cook? Sign In to share your recipes or
+    <a href="{{ signup_url }}">sign up</a> to start!{% endblocktrans %}</p>
+   
+    <form class="form p-2" method="POST" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        {{ form|crispy }} <!-- Crispy forms styling for form fields -->
+            
+        {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+            
+        <button class="btn btn-primary w-25 mb-2" type="submit">{% trans "Sign In" %}</button>
+        <a class="button secondaryAction d-block" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+    </form>
+</div>
+{% endblock content %}
+

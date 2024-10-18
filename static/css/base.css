@@ -65,12 +65,26 @@ footer {
     
 
 }
-.icon{
+.icon {
     height: 4rem;
     margin: 1rem;
 }
-.copyright{
+.copyright {
     margin-top: 10px;
     font-size: 14px;
     color:var(--darkgrey);
+}
+
+.active {
+    border-bottom: 2px solid var(--blue);
+    font-weight: 500;
+}
+
+/* form */
+.form {
+    width: 80%;
+    margin: 3% auto;
+    box-shadow: var(--smal-box-shadow);
+    border-radius: 5px;
+    
 }
