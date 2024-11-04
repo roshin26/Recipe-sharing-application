@@ -1,0 +1,48 @@
+{% extends "base.html"%}
+
+{% block title %}Add Recipe{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form method="POST" enctype="multipart/form-data" class="p-2 form">
+        <h1 class="text-center">Edit Recipe</h1>
+        {% csrf_token %}
+        {{form.media}}
+        {{ form|crispy }}
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary mt-2">Edit Recipe</button>
+        </div>
+    </form>
+</div>
+
+<!-- Include Quill CSS and JS -->
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+<script>
+    // Initialize Quill editors
+    document.addEventListener("DOMContentLoaded", function() {
+        const quillInstructions = new Quill('#id_instructions', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    ['bold', 'italic', 'underline'],
+                    [{' list': 'ordered' }, { 'list': 'bullet' }],
+                    ['clean']
+                ]
+            }
+        });
+
+        const quillIngredients = new Quill('#id_ingredients', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    ['bold', 'italic', 'underline'],
+                    [{' list': 'ordered' }, { 'list': 'bullet' }],
+                    ['clean']
+                ]
+            }
+        });
+    });
+</script>
+{% endblock %}

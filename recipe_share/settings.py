@@ -46,12 +46,25 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     #apps
     'home',
+    'recipes',
     #others
     'crispy_forms',
     'crispy_bootstrap5',
+    'cloudinary',
+    'cloudinary_storage',
+    'django_quill',
 ]
 
+
 SITE_ID = 1
+
+QUILL_EDITOR = {
+    'toolbar': [
+        ['bold', 'italic', 'underline'],[{'list': 'ordered'}, {'list': 'bullet'}]],
+    'height': '200px',  
+    }
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -157,7 +170,15 @@ LOGIN_REDIRECT_URL= '/'
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS =(os.path.join(BASE_DIR, 'static'),)
+
+#Cloudinary settings
+DEFAULT_FILE_STORAGE= 'cloudinary_storage.storage.MediaCloudinaryStorage'
+CLOUDINARY_URL= os.environ.get('CLOUDINARY_URL')
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# settings.py
+LOGIN_URL = '/accounts/login/' 
