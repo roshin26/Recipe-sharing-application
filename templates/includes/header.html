@@ -1,10 +1,10 @@
 {% load static %}
 <header>
   {% with request.resolver_match.url_name as url_name %}
-    <nav class="navbar navbar-expand-lg bg-white ">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <!--logo-->
-          <a class="navbar-brand" href="#"><img src="{% static 'images/recipe_logo.webp' %}" alt="Recipe sharing logo" class="logo"></a>
+          <a class="navbar-brand" href="#"><img src="{% static 'images/recipelogo.webp' %}" alt="Recipe sharing logo" class="logo"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -34,9 +34,9 @@
               {% endif %}
             </ul>
             <!-- Form for search functionality-->
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-primary" type="submit">Search</button>
+            <form class="d-flex" role="search" method="GET" action="{% url 'recipes' %}">
+                <input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-light" type="submit">Search</button>
               </form>
           </div>
         </div>
