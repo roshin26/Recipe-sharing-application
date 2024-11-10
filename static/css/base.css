@@ -57,6 +57,14 @@ main {
     flex: 1 0 auto;
     background-color: var(--beige);
 }
+#id_password_helptext{
+    display: none !important;
+}
+#div_id_remember{
+    display: flex !important;
+    gap: 1.5rem !important;
+    justify-content: center;
+}
 
 /* footer */
 footer {

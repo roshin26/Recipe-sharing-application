@@ -19,12 +19,7 @@ class RecipeForm(forms.ModelForm):
             "cuisine_types",
             "calories",
         ]
-        # ingredients = forms.CharField(
-        #     widget=forms.Textarea(attrs={"rows": 4, "cols": 40})
-        # )
-        # instructions = forms.CharField(
-        #     widget=forms.Textarea(attrs={"rows": 4, "cols": 40})
-        # )
+
         widgets = {
             "description": forms.Textarea(attrs={"rows": 5, "cols": 40}),
         }
