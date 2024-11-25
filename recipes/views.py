@@ -2,12 +2,9 @@ from django.shortcuts import render
 from django.views.generic import CreateView, ListView, DetailView, DeleteView,UpdateView
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-
+from django.utils.html import escape
 from .models import Recipe
 from .forms import RecipeForm
-
-# Create your views here.
-
 
 class Recipes(ListView):
     """view all recipes"""
@@ -17,7 +14,8 @@ class Recipes(ListView):
     context_object_name = "recipes"
 
     def get_queryset(self, **kwargs):
-        query = self.request.GET.get('q')
+        query = self.request.GET.get('q', '').strip()
+        query = escape(query)
         if query:
             recipes = self.model.objects.filter(
                 Q(title__icontains=query) |
@@ -32,7 +30,7 @@ class Recipes(ListView):
 
 
 class RecipeDetail(DetailView):
-    """view the recipe"""
+    """view the recipe detail here"""
 
     template_name = "recipes/recipe_detail.html"
     model = Recipe
@@ -40,7 +38,7 @@ class RecipeDetail(DetailView):
 
 
 class AddRecipe(LoginRequiredMixin, CreateView):
-    """Add recipe view"""
+    """Adding here the recipe view"""
 
     template_name = "recipes/add_recipe.html"
     model = Recipe
@@ -52,11 +50,13 @@ class AddRecipe(LoginRequiredMixin, CreateView):
         return super(AddRecipe, self).form_valid(form)
 
 class DeleteRecipe(LoginRequiredMixin, UserPassesTestMixin,DeleteView):
-     """ Delete a recipe"""
+     """ Deleteing the recipe here"""
      model = Recipe
      success_url = "/recipes/"
 
      def test_func(self):
+         if not self.request.user.is_authenticated:
+          return False
          return self.request.user == self.get_object().user
      
 class EditRecipe(LoginRequiredMixin, UserPassesTestMixin,UpdateView):
@@ -67,5 +67,7 @@ class EditRecipe(LoginRequiredMixin, UserPassesTestMixin,UpdateView):
     success_url = "/recipes/"
 
     def test_func(self):
+         if not self.request.user.is_authenticated:
+          return False
          return self.request.user == self.get_object().user
 

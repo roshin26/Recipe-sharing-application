@@ -1,7 +1,7 @@
 from django import forms
 from .models import Recipe
 from django.conf import settings
-from django_quill.fields import QuillField 
+from django_quill.fields import QuillField  # type: ignore
 
 class RecipeForm(forms.ModelForm):
     """Form to create a recipe"""
