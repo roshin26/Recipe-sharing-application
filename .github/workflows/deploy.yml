@@ -1,0 +1,39 @@
+name: CI/CD for Django App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Deploy to EC2
+      env:
+        EC2_USER: ${{ secrets.EC2_USER }}
+        EC2_HOST: ${{ secrets.EC2_HOST }}
+        DEPLOY_DIR: ${{ secrets.DEPLOY_DIR }}
+        EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+      run: |
+        # Set up SSH agent and add private key
+        echo "$EC2_PRIVATE_KEY" > private_key.pem
+        chmod 600 private_key.pem
+        ssh-add private_key.pem
+
+        # Deploy code to EC2
+        ssh -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST "
+        cd $DEPLOY_DIR || exit 1
+        git pull origin main
+        source .venv/bin/activate
+        pip install -r requirements.txt
+        python manage.py migrate
+        python manage.py collectstatic --noinput
+        sudo systemctl restart gunicorn
+        sudo systemctl restart nginx
+        "
+
