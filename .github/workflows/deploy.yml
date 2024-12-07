@@ -21,6 +21,7 @@ jobs:
         EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
       run: |
         # Set up SSH agent and add private key
+        eval "$(ssh-agent -s)"  # Start the SSH agent
         echo "$EC2_PRIVATE_KEY" > private_key.pem
         chmod 600 private_key.pem
         ssh-add private_key.pem
