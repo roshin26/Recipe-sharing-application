@@ -3,7 +3,7 @@
 {% block title %}Recipes{% endblock %}
 
 {% block content %}
-<h1 class="text-center p-2"> Recipes </h1>
+<h1 class="text-center p-2"> Find your Favourite Recipes </h1>
 <div class="container d-flex flex-row flex-wrap justify-content-center"> 
     {% for recipe in recipes %}
     <a href="{% url 'recipe_detail' recipe.id %}" class="recipes" aria-label="Click to view {{recipe.title}}">
