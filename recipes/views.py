@@ -5,6 +5,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.utils.html import escape
 from .models import Recipe
 from .forms import RecipeForm
+from django.contrib import messages
+from .auditor import audit_ingredients
 
 class Recipes(ListView):
     """view all recipes"""
@@ -47,6 +49,11 @@ class AddRecipe(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        # Extract plain text from QuillField ingredients
+        raw_ingredients = form.instance.ingredients.plain
+        # Run the AI Auto-Tagger
+        tags = audit_ingredients(raw_ingredients)
+        form.instance.dietary_tags = tags
         return super(AddRecipe, self).form_valid(form)
 
 class DeleteRecipe(LoginRequiredMixin, UserPassesTestMixin,DeleteView):
@@ -70,4 +77,10 @@ class EditRecipe(LoginRequiredMixin, UserPassesTestMixin,UpdateView):
          if not self.request.user.is_authenticated:
           return False
          return self.request.user == self.get_object().user
+    def form_valid(self, form):
+        # Re-run the AI Auto-Tagger on edit
+        raw_ingredients = form.instance.ingredients.plain
+        tags = audit_ingredients(raw_ingredients)
+        form.instance.dietary_tags = tags
+        return super(EditRecipe, self).form_valid(form)
 

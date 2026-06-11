@@ -4,17 +4,25 @@
 
 {% block content %}
 <h1 class="text-center p-2"> Recipes </h1>
-<div class="container d-flex flex-row flex-wrap justify-content-center"> 
-    {% for recipe in recipes %}
-    <a href="{% url 'recipe_detail' recipe.id %}" class="recipes" aria-label="Click to view {{recipe.title}}">
-        <div class="card m-3" style="width: 18rem;">
-            <img src="{{recipe.image.url}}" class="card-img-top" style="height: 350px; object-fit: cover" alt="{{recipe.image_alt}}">
-            <div class="card-body">
-              <h2 class="card-title">{{recipe.title}}</h2>
-              <p class="card-text">{{recipe.description|truncatechars:100}}</p>
-            </div>
-          </div>
-    </a>
-    {% endfor %}
+<div class="container d-flex flex-row flex-wrap justify-content-center">
+  {% for recipe in recipes %}
+  <a href="{% url 'recipe_detail' recipe.id %}" class="recipes" aria-label="Click to view {{recipe.title}}">
+    <div class="card m-3" style="width: 18rem;">
+      <img src="{{recipe.image.url}}" class="card-img-top" style="height: 350px; object-fit: cover"
+        alt="{{recipe.image_alt}}">
+      <div class="card-body">
+        <h2 class="card-title">{{recipe.title}}</h2>
+        <p class="card-text">{{recipe.description|truncatechars:100}}</p>
+        {% if recipe.get_dietary_badges %}
+        <div class="dietary-tags">
+          {% for tag in recipe.get_dietary_badges %}
+          <span class="badge {{ tag.css_class }} badge-sm">{{ tag.emoji }} {{ tag.text }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </a>
+  {% endfor %}
 </div>
 {% endblock %}

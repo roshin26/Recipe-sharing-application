@@ -158,8 +158,8 @@ USE_TZ = True
 
 #Account_setup
 ACCOUNT_AUTHENTICATION_METHOD='username_email'
-ACCOUNT_EMAIL_REQUIRED='True'
-ACCOUNT_USERNAME_REQUIRED='True'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION='none'
 ACCOUNT_USERNAME_MIN_LENGTH= 4
 LOGIN_URL= '/accounts/login/'
@@ -169,8 +169,10 @@ LOGIN_REDIRECT_URL= '/'
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS =(os.path.join(BASE_DIR, 'static'),)
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 #Cloudinary settings
 DEFAULT_FILE_STORAGE= 'cloudinary_storage.storage.MediaCloudinaryStorage'

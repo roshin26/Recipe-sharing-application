@@ -3,7 +3,7 @@
 {% block title %}Recipe Detail - {{recipe.title}}{% endblock %}
 
 {% block content %}
-  <div class="container">
+<div class="container">
     <div class="recipe-info mt-3 p 1">
         <div class="recipe-img">
             <img src="{{recipe.image.url}}" alt="{{recipe.image_alt}}" class="recipe-pic">
@@ -15,6 +15,14 @@
             <p><strong> Calories: </strong> {{recipe.calories}}</p>
             <p><strong> Cuisine: </strong> {{recipe.cuisine_types}}</p>
             <p><strong> Meal Type: </strong> {{recipe.meal_type}}</p>
+            {% if recipe.get_dietary_badges %}
+            <div class="dietary-tags mt-2 mb-2">
+                <strong>AI Dietary Analysis: </strong>
+                {% for tag in recipe.get_dietary_badges %}
+                <span class="badge {{ tag.css_class }}">{{ tag.emoji }} {{ tag.text }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
             <p>{{recipe.description}}</p>
             {% if request.user == recipe.user %}
             <div class="text-center">
@@ -34,7 +42,7 @@
             <p>{{recipe.instructions.html|safe}}</p>
         </div>
     </div>
-  </div>
+</div>
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 {% endblock %}

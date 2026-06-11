@@ -5,21 +5,27 @@
     --title: 'EB Garamond', serif;
     --main-font: 'Roboto', serif;
 
-    /* Colours */
-    --background: #3f006a0f;
+    /* Colours - The Organic Kitchen Palette */
+    --background: #F4F1DE;
+    /* Warm Cream */
     --blue: #0d6efd;
-    --black: #000;
-    --off-white: #f6f6f6;
-    --white: #fff;
-    --orange: #ffbf50;
-    --darkgrey: #666;
-    --darkgreen:#518756;
-    --beige:#ffffff;
-    --lightgreen:#D5ED9F;
+    --black: #264653;
+    /* Deep Charcoal (softer than black) */
+    --off-white: #FAF9F1;
+    --white: #ffffff;
+    --orange: #E76F51;
+    /* Burnt Orange */
+    --darkgrey: #666666;
+    --darkgreen: #518755;
+    /* Exactly matches logo background */
+    --beige: #F4F1DE;
+    --lightgreen: #E9C46A;
+    /* Soft Gold/Mustard */
 
     /* Utils */
-    --smal-box-shadow: 1px -1px 7px 0 #00000061;
-    --border: 1px solid #00000030;
+    --smal-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    /* Modern, soft shadow */
+    --border: 1px solid rgba(38, 70, 83, 0.1);
 }
 
 /* Header */
@@ -39,7 +45,8 @@ img.logo {
 }
 
 /* main design */
-html, body {
+html,
+body {
     height: 100%;
 }
 
@@ -49,7 +56,12 @@ body {
     font-family: var(--main-font);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: var(--title);
 }
 
@@ -57,10 +69,12 @@ main {
     flex: 1 0 auto;
     background-color: var(--beige);
 }
-#id_password_helptext{
+
+#id_password_helptext {
     display: none !important;
 }
-#div_id_remember{
+
+#div_id_remember {
     display: flex !important;
     gap: 1.5rem !important;
     justify-content: center;
@@ -75,17 +89,19 @@ footer {
     justify-content: center;
     align-items: center;
     border-top: var(--border);
-    
+
 
 }
+
 .icon {
     height: 4rem;
     margin: 1rem;
 }
+
 .copyright {
     margin-top: 10px;
     font-size: 14px;
-    color:var(--lightgreen);
+    color: var(--lightgreen);
 }
 
 .active {
@@ -99,46 +115,60 @@ footer {
     margin: 3% auto;
     box-shadow: var(--smal-box-shadow);
     border-radius: 5px;
-    
+
 }
 
 /* Recipes */
 
-.card{
+.card {
     height: 90%;
     margin-top: 1rem;
-    background-color: #fff2e7;
-
+    background-color: var(--white);
+    border: var(--border);
+    border-radius: 8px;
+    box-shadow: var(--smal-box-shadow);
+    transition: transform 0.2s ease;
 }
 
-.recipes{
+.card:hover {
+    transform: translateY(-3px);
+}
+
+.recipes {
     text-decoration: none;
     color: var(--black);
 }
-.recipes:hover{
+
+.recipes:hover {
     cursor: pointer;
 }
 
-.recipe-info{
+.recipe-info {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-.recipe-container{
+
+.recipe-container {
     display: flex;
     flex-direction: column;
-    background-color: var(--off-white); 
+    background-color: var(--off-white);
 }
-.ingredients, .instructions, .recipe-detail {
+
+.ingredients,
+.instructions,
+.recipe-detail {
     width: 100%;
     background-color: var(--off-white);
 }
-.recipe-img{
+
+.recipe-img {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.recipe-pic{
+
+.recipe-pic {
     width: 100%;
     height: auto;
 }
@@ -151,6 +181,7 @@ footer {
     flex-wrap: wrap;
     justify-content: center;
 }
+
 a.img-container {
     position: relative;
     text-align: center;
@@ -161,13 +192,16 @@ a.img-container {
     border: 1px solid var(--border);
     box-shadow: var(--smal-box-shadow);
 }
+
 a.img-container:hover {
-    color: #FCCD2A;
+    color: var(--orange);
 }
+
 .img-container img {
     width: 100%;
     height: auto;
 }
+
 .centered {
     width: 100%;
     background-color: #000000c9;
@@ -177,29 +211,95 @@ a.img-container:hover {
     transform: translate(-50%, -50%);
 }
 
-@media screen and (min-width:62.5em){
-  .main-title {
+@media screen and (min-width:62.5em) {
+    .main-title {
         width: 50%;
     }
-  .recipe-info{
-    flex-direction: row;
-    border: 1px solid var(--black);
-  } 
-  .recipe-img{
-    width: 40%;
-    margin: 0 auto;
-  }
-  .recipe-detail{
-    width: 60%;
-    padding: 2rem;
-  }
-  .recipe-container{
-    flex-direction: row;
-  }
-  .ingredients{
-    width: 33.33%;
-  }
-  .instructions{
-    width: 66.66%;
-  }
+
+    .recipe-info {
+        flex-direction: row;
+        border: 1px solid var(--black);
+    }
+
+    .recipe-img {
+        width: 40%;
+        margin: 0 auto;
+    }
+
+    .recipe-detail {
+        width: 60%;
+        padding: 2rem;
+    }
+
+    .recipe-container {
+        flex-direction: row;
+    }
+
+    .ingredients {
+        width: 33.33%;
+    }
+
+    .instructions {
+        width: 66.66%;
+    }
+}
+
+/* AI Dietary Tags */
+.dietary-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.dietary-tags .badge {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.badge-meat {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.badge-seafood {
+    background-color: #0dcaf0;
+    color: #000;
+}
+
+.badge-dairy {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.badge-eggs {
+    background-color: #fd7e14;
+    color: #fff;
+}
+
+.badge-gluten {
+    background-color: #d4a373;
+    color: #fff;
+}
+
+.badge-nuts {
+    background-color: #795548;
+    color: #fff;
+}
+
+.badge-vegan {
+    background-color: #198754;
+    color: #fff;
+}
+
+.badge-vegetarian {
+    background-color: #518755;
+    color: #fff;
+}
+
+.badge-sm {
+    font-size: 0.65rem;
+    padding: 2px 6px;
 }

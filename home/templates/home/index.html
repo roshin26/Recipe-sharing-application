@@ -1,30 +1,122 @@
 {% extends 'base.html' %}
-{% block title %}Home{% endblock %} 
+{% load static %}
+{% block title %}Home{% endblock %}
 
+{% block content %}
 
-{% block content %} 
+<style>
+    /* Make the main background transparent to show the video */
+    main {
+        background-color: transparent !important;
+        color: var(--white);
+    }
+
+    /* Home Page Video Background */
+    .video-background-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+        overflow: hidden;
+    }
+
+    .video-bg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        pointer-events: none;
+    }
+
+    .video-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.65);
+        /* Dark overlay for text readability */
+        backdrop-filter: blur(2px);
+        /* Subtle glassmorphism effect */
+    }
+
+    /* Style enhancements for text */
+    .hero-section {
+        color: white;
+        text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.8);
+        padding: 5rem 0;
+    }
+
+    .main-title {
+        color: var(--white) !important;
+        font-size: 3.5rem;
+        font-weight: 600;
+        text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.9);
+    }
+
+    .hero-section p {
+        font-size: 1.2rem;
+        line-height: 1.8;
+    }
+
+    .recipe-cont .card {
+        background: rgba(255, 242, 231, 0.85);
+        /* Semi-transparent cards */
+        backdrop-filter: blur(10px);
+        /* Frosted glass effect for cards */
+        border: none;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        transition: transform 0.3s ease;
+    }
+
+    .recipe-cont .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .centered {
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 8px;
+        padding: 5px;
+    }
+</style>
+
+<!-- Video Background Container -->
+<div class="video-background-wrapper">
+    <video autoplay loop muted playsinline class="video-bg">
+        <!-- High-quality royalty-free cooking video from Pexels -->
+        <source src="{% static 'cooking-bg.mp4' %}" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+</div>
 
 <div class="container flex-column pt-3">
-    <section class="text-center">
-        <h1 class="main-title mx-auto">Unlock a World of Flavors !</h1>
+    <section class="text-center hero-section">
+        <h1 class="main-title mx-auto">Unlock a World of Flavors!</h1>
 
         <p class="pt-4">
-            Welcome to our recipe-sharing community! Here, you’ll find delicious recipes from around the world, along with a place to share your own creations. Whether you’re exploring a new cuisine or perfecting a classic, we have recipes and inspiration for every mood and moment. Let our meal generator surprise you with fresh ideas tailored to your tastes, and join a community that loves cooking as much as you do!
+            Welcome to our recipe-sharing community! Here, you’ll find delicious recipes from around the world, along
+            with a place to share your own creations. Whether you’re exploring a new cuisine or perfecting a classic, we
+            have recipes and inspiration for every mood and moment. Let our meal generator surprise you with fresh ideas
+            tailored to your tastes, and join a community that loves cooking as much as you do!
         </p>
     </section>
     <section>
         <div class="recipe-cont">
-            {% for recipe in recipes %} 
-                <div class="card m-3 mb-5" style="width: 18rem;">
-                    <a href="{% url 'recipe_detail' recipe.id %}" class="img-container">
-                      <img src="{{recipe.image.url}}" alt="{{recipe.image_alt}}" style="height: 350px; object-fit: cover">
-                      <div class="centered"><h2>{{recipe.title}}</h2></div>
-                    </a>
-                </div>
+            {% for recipe in recipes %}
+            <div class="card m-3 mb-5" style="width: 18rem;">
+                <a href="{% url 'recipe_detail' recipe.id %}" class="img-container">
+                    <img src="{{recipe.image.url}}" alt="{{recipe.image_alt}}"
+                        style="height: 350px; object-fit: cover; border-top-left-radius: 5px; border-top-right-radius: 5px;">
+                    <div class="centered">
+                        <h2>{{recipe.title}}</h2>
+                    </div>
+                </a>
+            </div>
             {% endfor %}
         </div>
     </section>
-    
+
 </div>
 
 {% endblock %}

@@ -1,3 +1,4 @@
+import json
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
@@ -44,12 +45,22 @@ class Recipe(models.Model):
     )
     calories = models.IntegerField()
     posted_date = models.DateTimeField(auto_now=True)
+    dietary_tags = models.JSONField(
+        default=list,
+        blank=True,
+        help_text="AI-generated dietary tags from ingredient analysis"
+    )
 
     class Meta:
         ordering = ["-posted_date"]
 
     def __str__(self):
         return str(self.title)
+    def get_dietary_badges(self):
+        """Return the dietary tags for template rendering."""
+        if self.dietary_tags:
+            return self.dietary_tags
+        return []
 
     def image_url(self):
         if self.image:
